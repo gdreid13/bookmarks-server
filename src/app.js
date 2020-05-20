@@ -32,39 +32,7 @@ app.use(function validateBearerToken(req, res, next) {
 app.use(bookmarksRouter)
 
 app.get('/', (req, res) => {
-  res.send('Hello, world!')
-})
-
-app.get('/bookmarks/:id', (req, res) => {
-  const { id } = req.params;
-  const bookmark = bookmarks.find(b => b.id == id);
-
-  if (!bookmark) {
-    logger.error(`Bookmark with id ${id} not found.`);
-    return res
-      .status(404)
-      .send('Bookmark not found');
-  }
-
-  res.json(bookmark);
-})
-
-app.delete('/bookmark/:id', (req, res) => {
-  const { id } = req.params;
-
-  for (i = 0; i < bookmarks.length; i++) {
-   if (id === bookmarks[i].id) {
-    bookmarks.splice(id, 1);
-    logger.info(`Bookmark with id ${id} deleted`);
-    return res
-      .status(204)
-      .end();
-    }
-  }
-  logger.error(`Bookmark with id ${id} not found`);
-  res
-    .status(404)
-    .send(`Bookmark not found`);
+  res.send('Hello, seeker!')
 })
 
 app.use(function errorHandler(error, req, res, next) {
