@@ -25,3 +25,12 @@
 {"message":"Unauthorized request to path: /bookmarks/1","level":"error"}
 {"message":"Bookmark with id 1 not found","level":"error"}
 {"message":"Bookmark with id 1 not found","level":"error"}
+{"message":"Bookmark with id undefined not found.","level":"error"}
+{"message":"Bookmark with id undefined not found.","level":"error"}
+{"message":"Bookmark with id undefined not found.","level":"error"}
+{"message":"Bookmark with id [object Object] not found.","level":"error"}
+{"message":"Invalid rating '5' supplied","level":"error"}
+{"message":"Invalid rating '5' supplied","level":"error"}
+{"message":"Invalid url 'axios.com' supplied","level":"error"}
+{"message":"Bookmark with id 6e97a2a2-d19d-4ff6-bbf2-17348191d2e1 created","level":"info"}
+{"message":"Bookmark with id 1 deleted","level":"info"}
