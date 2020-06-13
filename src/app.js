@@ -4,18 +4,12 @@ const morgan = require('morgan')
 const cors = require('cors')
 const helmet = require('helmet')
 const { NODE_ENV } = require('./config')
+const BookmarksService = require('./bookmarks-service')
 const { v4: uuid } = require('uuid');
 const bookmarksRouter = require('./bookmarks/bookmarks-router')
 const logger = require('./logger')
 
 const app = express()
-const knex = require('knex')
-const BookmarksService = require('./bookmarks-service')
-
-const knexInstance = knex({
-  client: 'pg',
-  connection: process.env.DB_URL,
-})
 
 const morganOption = (NODE_ENV === 'production')
   ? 'tiny'
@@ -37,27 +31,30 @@ app.use(function validateBearerToken(req, res, next) {
   next()
 })
 
-BookmarksService.getAllArticles(knexInstance)
-  .then(bookmarks => console.log(bookmarks))
-  .then(() => 
-    BookmarksService.insertBookmark(knexInstance, {
-      title: 'New title',
-      url: 'www.google.com',
-      rating: 3,
+
+app.get('/bookmarks', (req, res, next) => {
+  const knexInstance = req.app.get('db')
+  BookmarksService.getAllBookmarks(knexInstance)
+  .then(bookmarks => {
+    res.json(bookmarks)
     })
-  )
-  .then(newBookmark => {
-    console.log(newBookmark)
-    return BookmarksService.updateBookmark(
-      knexInstance,
-      newBookmark.id,
-      { title: 'Updated title'}
-    ).then(() => BookmarksService.getById(knexInstance, newBookmark.id))
-  })
-  .then(bookmark => {
-    console.log(bookmark)
-    return BookmarksService.deleteBookmark(knexInstance, id)
-  })
+    .catch(next)
+})
+
+app.get('/bookmarks/:bookmark_id', (req, res, next) => {
+  const knexInstance = req.app.get('db')
+  BookmarksService.getById(knexInstance, req.params.bookmark_id)
+    .then(bookmark => {
+      if (!bookmark) {
+        return res.status(404).json({
+          error: { message: `Article doesn't exist` }
+        })
+      }
+      res.json(bookmark)
+    })
+    .catch(next)
+})
+
 
 
 
