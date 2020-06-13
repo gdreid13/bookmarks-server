@@ -4,13 +4,12 @@ const morgan = require('morgan')
 const cors = require('cors')
 const helmet = require('helmet')
 const { NODE_ENV } = require('./config')
+const BookmarksService = require('../bookmarks-service')
 const { v4: uuid } = require('uuid');
 const bookmarksRouter = require('./bookmarks/bookmarks-router')
 const logger = require('./logger')
-
 const app = express()
 const knex = require('knex')
-const BookmarksService = require('./bookmarks-service')
 
 const knexInstance = knex({
   client: 'pg',
@@ -37,7 +36,9 @@ app.use(function validateBearerToken(req, res, next) {
   next()
 })
 
-BookmarksService.getAllArticles(knexInstance)
+
+app.get('/bookmarks', (req, res, next) => {
+  BookmarksService.getAllArticles(knexInstance)
   .then(bookmarks => console.log(bookmarks))
   .then(() => 
     BookmarksService.insertBookmark(knexInstance, {
@@ -58,6 +59,8 @@ BookmarksService.getAllArticles(knexInstance)
     console.log(bookmark)
     return BookmarksService.deleteBookmark(knexInstance, id)
   })
+})
+
 
 
 
