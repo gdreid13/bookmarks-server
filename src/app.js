@@ -9,8 +9,37 @@ const bookmarksRouter = require('./bookmarks/bookmarks-router')
 const logger = require('./logger')
 
 const app = express()
+const knex = require('knex')
+const BookmarksService = require('./bookmarks-service')
 
-const morganOption = (NODE_ENV === 'production')
+const knexInstance = knex({
+  client: 'pg',
+  connection: process.env.DB_URL,
+})
+
+BookmarksService.getAllArticles(knexInstance)
+  .then(bookmarks => console.log(bookmarks))
+  .then(() => 
+    BookmarksService.insertBookmark(knexInstance, {
+      title: 'New title',
+      url: 'www.google.com',
+      rating: 3,
+    })
+  )
+  .then(newBookmark => {
+    console.log(newBookmark)
+    return BookmarksService.updateBookmark(
+      knexInstance,
+      newBookmark.id,
+      { title: 'Updated title'}
+    ).then(() => BookmarksService.getById(knexInstance, newBookmark.id))
+  })
+  .then(bookmark => {
+    console.log(bookmark)
+    return BookmarksService.deleteBookmark(knexInstance, bookmark.id)
+  })
+
+/* const morganOption = (NODE_ENV === 'production')
   ? 'tiny'
   : 'common';
 
@@ -45,6 +74,6 @@ app.use(function errorHandler(error, req, res, next) {
     response = { message: error.message, error }
   }
   res.status(500).json(response)
-})
+}) */
 
 module.exports = app
