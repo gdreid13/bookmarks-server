@@ -29,7 +29,8 @@ bookmarksRouter
   .post(bodyParser, (req, res, next) => {
     const { title, url, description, rating } = req.body
     const ratingInt = parseInt(rating)
-    const newBookmark = { title, url, description, rating }
+    const id = uuid();
+    const newBookmark = { id, title, url, description, rating }
 
     for (const [key, value] of Object.entries(newBookmark)) {
       if (value == null) {
