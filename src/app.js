@@ -47,7 +47,7 @@ app.get('/bookmarks/:bookmark_id', (req, res, next) => {
     .then(bookmark => {
       if (!bookmark) {
         return res.status(404).json({
-          error: { message: `Article doesn't exist` }
+          error: { message: `Bookmark doesn't exist` }
         })
       }
       res.json(bookmark)

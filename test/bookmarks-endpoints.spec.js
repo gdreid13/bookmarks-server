@@ -3,7 +3,7 @@ const knex = require('knex')
 const app = require('../src/app')
 const { makeBookmarksArray } = require('./bookmarks.fixtures')
 
-describe.only('Bookmarks Endpoints', function() {
+describe('Bookmarks Endpoints', function() {
   let db
 
   before('make knex instance', () => {
@@ -47,6 +47,61 @@ describe.only('Bookmarks Endpoints', function() {
           .expect(200, testBookmarks)
       })
 
+
+
+    })
+  })
+
+  describe(`GET /bookmarks/:bookmark_id`, () => {
+
+    context(`Given no bookmarks`, () => {
+      it (`responds with a 404`, () => {
+        const bookmarkId = 123456
+        return supertest(app)
+          .get(`/bookmarks/${bookmarkId}`)
+          .set('Authorization', 'Bearer ' + process.env.API_TOKEN)
+          .expect(404, { error: { message: `Bookmark doesn't exist` } })
+      })
+    })
+
+    context(`Given that there are bookmarks in the database`, () => {
+
+      context(`Given an XSS attack bookmark`, () => {
+        const maliciousBookmark = {
+          id: 911,
+          title: 'Naughty naughty very naughty <script>alert("xss");</script>',
+          url: 'malicio.us',
+          description: `Bad image <img src="https://url.to.file.which/does-not.exist" onerror="alert(document.cookie);">. But not <strong>all</strong> bad.`,
+          rating: 3
+        }
+
+        beforeEach(`insert malicious bookmark`, () => {
+          return db
+            .into('bookmarks')
+            .insert([maliciousBookmark])
+        })
+
+        it(`removes XSS attack content`, () => {
+          return supertest(app)
+          .get(`/bookmarks/${maliciousBookmark.id}`)
+          .set('Authorization', 'Bearer ' + process.env.API_TOKEN)
+          .expect(200)
+          .expect(res => {
+            expect(res.body.title).to.eql('Naughty naughty very naughty &lt;script&gt;alert(\"xss\");&lt;/script&gt;')
+            expect(res.body.description).to.eql(`Bad image <img src="https://url.to.file.which/does-not.exist">. But not <strong>all</strong> bad.`)
+          })
+        })
+
+      })
+
+      const testBookmarks = makeBookmarksArray()
+
+      beforeEach('insert bookmarks', () => {
+        return db
+          .into('bookmarks')
+          .insert(testBookmarks)
+      })
+
       it('responds with 200 and the specified bookmark', () => {
         const bookmarkId = 2
         const expectedBookmark = testBookmarks[bookmarkId - 1]
@@ -57,5 +112,7 @@ describe.only('Bookmarks Endpoints', function() {
       })
 
     })
+
+
   })
 })
