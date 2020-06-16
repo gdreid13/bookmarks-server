@@ -25,27 +25,36 @@ bookmarksRouter
       .catch(next)
   })
   .post(bodyParser, (req, res, next) => {
-    const { title, url, description, rating } = req.body
-    const ratingInt = parseInt(rating)
 
-    for (const [key, value] of Object.entries(newBookmark)) {
-      if (value == null) {
-        return res.status(400).json({
-          error: { message: `Missing '${key}' in request body` }
+    const { title, url, description, rating } = req.body
+
+    const newBookmark = { title, url, description, rating }
+
+    for (const field of ['title', 'url', 'rating']) {
+      if (!req.body[field]) {
+        logger.error(`${field} is required`)
+        return res.status(400).send({
+          error: { message: `'${field}' is required` }
         })
       }
     }
 
-    if (!Number.isInteger(ratingInt) || ratingInt < 0 || ratingInt > 5) {
+    const ratingNum = Number(rating)
+
+    if (!Number.isInteger(ratingNum) || ratingNum < 0 || ratingNum > 5) {
       logger.error(`Invalid rating '${rating}' supplied`)
-      return res.status(400).send(`'rating' must be a number between 0 and 5`)
+      return res.status(400).send({
+        error: { message: `'rating' must be a number between 0 and 5` }
+      })
     }
     if (!isWebUri(url)) {
       logger.error(`Invalid url '${url}' supplied`)
-      return res.status(400).send(`'url' must be a valid URL`)
+      return res.status(400).send({
+        error: { message: `'url' must be a valid URL` }
+      })
     }
 
-    const newBookmark = { title, url, description, rating }
+
 
     BookmarksService.insertBookmark(
       req.app.get('db'),
@@ -88,7 +97,7 @@ bookmarksRouter
       req.params.bookmark_id
     )
       .then(() => {
-        res.status(204).end
+        res.status(204).end()
       })
       .catch(next)
   })

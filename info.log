@@ -44,3 +44,67 @@
 {"message":"Unauthorized request to path: /bookmarks/911","level":"error"}
 {"message":"Unauthorized request to path: /","level":"error"}
 {"message":"Unauthorized request to path: /","level":"error"}
+{"message":"Invalid rating '6' supplied","level":"error"}
+{"message":"Unauthorized request to path: /bookmarks","level":"error"}
+{"message":"Invalid rating '6' supplied","level":"error"}
+{"message":"Bookmark with id 1 created.","level":"info"}
+{"message":"Invalid rating '6' supplied","level":"error"}
+{"message":"Bookmark with id 1 created.","level":"info"}
+{"message":"Invalid rating '6' supplied","level":"error"}
+{"message":"Invalid url 'this is not a url' supplied","level":"error"}
+{"message":"Bookmark with id 1 created.","level":"info"}
+{"message":"Invalid rating '6' supplied","level":"error"}
+{"message":"Invalid url 'this is not a url' supplied","level":"error"}
+{"message":"title is required","level":"error"}
+{"message":"Bookmark with id 1 created.","level":"info"}
+{"message":"Invalid rating '6' supplied","level":"error"}
+{"message":"Invalid url 'this is not a url' supplied","level":"error"}
+{"message":"title is required","level":"error"}
+{"message":"Bookmark with id 1 created.","level":"info"}
+{"message":"Invalid rating '6' supplied","level":"error"}
+{"message":"Invalid url 'this is not a url' supplied","level":"error"}
+{"message":"title is required","level":"error"}
+{"message":"url is required","level":"error"}
+{"message":"rating is required","level":"error"}
+{"message":"Bookmark with id 1 created.","level":"info"}
+{"message":"Invalid rating '6' supplied","level":"error"}
+{"message":"Invalid url 'this is not a url' supplied","level":"error"}
+{"message":"title is required","level":"error"}
+{"message":"url is required","level":"error"}
+{"message":"rating is required","level":"error"}
+{"message":"Bookmark with id 1 created.","level":"info"}
+{"message":"Invalid rating '6' supplied","level":"error"}
+{"message":"Invalid url 'this is not a url' supplied","level":"error"}
+{"message":"title is required","level":"error"}
+{"message":"url is required","level":"error"}
+{"message":"rating is required","level":"error"}
+{"message":"Bookmark with id 1 created.","level":"info"}
+{"message":"Invalid rating '6' supplied","level":"error"}
+{"message":"Invalid url 'this is not a url' supplied","level":"error"}
+{"message":"title is required","level":"error"}
+{"message":"url is required","level":"error"}
+{"message":"rating is required","level":"error"}
+{"message":"Bookmark with id 1 created.","level":"info"}
+{"message":"Invalid rating '6' supplied","level":"error"}
+{"message":"Invalid url 'this is not a url' supplied","level":"error"}
+{"message":"title is required","level":"error"}
+{"message":"url is required","level":"error"}
+{"message":"rating is required","level":"error"}
+{"message":"Bookmark with id 1 created.","level":"info"}
+{"message":"Invalid rating '6' supplied","level":"error"}
+{"message":"Invalid url 'this is not a url' supplied","level":"error"}
+{"message":"title is required","level":"error"}
+{"message":"url is required","level":"error"}
+{"message":"rating is required","level":"error"}
+{"message":"Bookmark with id 1 created.","level":"info"}
+{"message":"Invalid rating '6' supplied","level":"error"}
+{"message":"Invalid url 'this is not a url' supplied","level":"error"}
+{"message":"title is required","level":"error"}
+{"message":"url is required","level":"error"}
+{"message":"rating is required","level":"error"}
+{"message":"Bookmark with id 1 created.","level":"info"}
+{"message":"Invalid rating '6' supplied","level":"error"}
+{"message":"Invalid url 'this is not a url' supplied","level":"error"}
+{"message":"title is required","level":"error"}
+{"message":"url is required","level":"error"}
+{"message":"rating is required","level":"error"}
