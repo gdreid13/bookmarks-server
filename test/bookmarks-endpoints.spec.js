@@ -69,7 +69,7 @@ describe('Bookmarks Endpoints', function() {
       context(`Given an XSS attack bookmark`, () => {
         const maliciousBookmark = {
           id: 911,
-          title: 'Naughty naughty very naughty <script>alert("xss");</script>',
+          title: `Naughty naughty very naughty <script>alert("xss");</script>`,
           url: 'malicio.us',
           description: `Bad image <img src="https://url.to.file.which/does-not.exist" onerror="alert(document.cookie);">. But not <strong>all</strong> bad.`,
           rating: 3
