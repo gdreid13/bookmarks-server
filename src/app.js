@@ -4,8 +4,6 @@ const morgan = require('morgan')
 const cors = require('cors')
 const helmet = require('helmet')
 const { NODE_ENV } = require('./config')
-const BookmarksService = require('./bookmarks-service')
-const { v4: uuid } = require('uuid');
 const bookmarksRouter = require('./bookmarks/bookmarks-router')
 const logger = require('./logger')
 
@@ -27,36 +25,8 @@ app.use(function validateBearerToken(req, res, next) {
     logger.error(`Unauthorized request to path: ${req.path}`);
     return res.status(401).json({ error: 'Unauthorized request' })
   }
-
   next()
 })
-
-
-app.get('/bookmarks', (req, res, next) => {
-  const knexInstance = req.app.get('db')
-  BookmarksService.getAllBookmarks(knexInstance)
-  .then(bookmarks => {
-    res.json(bookmarks)
-    })
-    .catch(next)
-})
-
-app.get('/bookmarks/:bookmark_id', (req, res, next) => {
-  const knexInstance = req.app.get('db')
-  BookmarksService.getById(knexInstance, req.params.bookmark_id)
-    .then(bookmark => {
-      if (!bookmark) {
-        return res.status(404).json({
-          error: { message: `Article doesn't exist` }
-        })
-      }
-      res.json(bookmark)
-    })
-    .catch(next)
-})
-
-
-
 
 app.use(bookmarksRouter)
 

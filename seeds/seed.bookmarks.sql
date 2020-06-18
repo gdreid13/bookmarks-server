@@ -6,7 +6,7 @@ VALUES
   ('Google', 'google.com', 'Search engine', 3), 
   ('YouTube', 'youtube.com', 'Misinformation site', 1), 
   ('Twitter', 'twitter.com', 'Social network', 1), 
-  ('Reddit', 'reddit.com', 'Misinformation site', 2), 
+  ('Reddit', 'reddit.com', 'Misinformation site', 3), 
   ('Wikipedia', 'wikipedia.com', 'Information site', 5), 
   ('Snopes', 'snopes.com', 'Fact checker', 5), 
   ('Gmail', 'gmail.com', 'Email site', 3);
